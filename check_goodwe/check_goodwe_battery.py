@@ -32,18 +32,28 @@ def main() -> None:
     if battery_status.strip() == "":
         critical(f"Fault detected: {battery_status=}")
 
-    parser = re.compile("^(?P<volts>[\d\.]+)V\/(?P<amps>[\d\.]+)A\/(?P<watts>[\d\.]+)W")
+    parser = re.compile(
+        "^(?P<volts>[-\d\.]+)V\/(?P<amps>[-\d\.]+)A\/(?P<watts>[-\d\.]+)W"
+    )
     res = parser.match(battery_status)
     if res is None:
         critical(f"Couldn't parse battery status: {battery_status=}")
+        return None
+    groups = res.groupdict()
 
     try:
-        if 0.0 in [float(res["volts"]), float(res["amps"]), float(res["watts"])]:
-            critical(f"Fault detected: {res['volts']=},{res['amps']=},{res['watts']=}")
+        if 0.0 in [
+            float(groups["volts"]),
+            float(groups["amps"]),
+            float(groups["watts"]),
+        ]:
+            critical(
+                f"Fault detected: {groups['volts']=},{groups['amps']=},{groups['watts']=}"
+            )
     except Exception as error:
         critical(f"Couldn't parse battery status: {error=}")
 
-    ok(f"No faults detected {res.groupdict()}")
+    ok(f"No faults detected {groups}")
 
 
 if __name__ == "__main__":
