@@ -34,7 +34,7 @@ CONFIG_FILENAME = "check_goodwe.json"
 
 CONFIG_PATHS = [
     Path(f"./{CONFIG_FILENAME}"),
-    Path(os.getenv("HOME")) / f".config/{CONFIG_FILENAME}",
+    Path(os.getenv("HOME"), "./") / f".config/{CONFIG_FILENAME}",
     Path(f"/etc/{CONFIG_FILENAME}"),
 ]
 
