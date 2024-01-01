@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -39,7 +40,7 @@ CONFIG_PATHS = [
 ]
 
 
-def load_config() -> ConfigFile:
+def load_config() -> Optional[ConfigFile]:
     for filepath in CONFIG_PATHS:
         if filepath.exists():
             try:
@@ -52,3 +53,4 @@ def load_config() -> ConfigFile:
     unknown(
         f"Couldn't find config files, tried {','.join([str(x) for x in CONFIG_PATHS])}"
     )
+    return None

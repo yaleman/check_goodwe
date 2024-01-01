@@ -2,6 +2,7 @@
 
 """ dumps errors from goodwe """
 
+import sys
 from pygoodwe import API
 
 from check_goodwe import critical, load_config, ok
@@ -10,6 +11,8 @@ from check_goodwe import critical, load_config, ok
 def main() -> None:
     """dumps the raw data"""
     config = load_config()
+    if config is None:
+        sys.exit(2)
     goodwe = API(
         system_id=config.system_id,
         account=config.account,
