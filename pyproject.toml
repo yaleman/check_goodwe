@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "check-goodwe"
+version = "0.1.0"
+description = ""
+authors = ["James Hodgkinson <james@terminaloutcomes.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygoodwe = "^0.1.6"
+pydantic = "^2.5.3"
+
+
+[tool.poetry.scripts]
+"check_goodwe_faults" = "check_goodwe.check_goodwe_faults:main"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.9"
+pytest = "^7.4.4"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
