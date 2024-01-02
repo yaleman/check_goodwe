@@ -4,9 +4,57 @@
 
 import re
 import sys
+from typing import Any, Dict, List
 from pygoodwe import API
 
 from check_goodwe import critical, load_config, ok
+from check_goodwe.battery import BATTERY_PARSER
+
+MIN_SOC_VALUE = 0.0
+
+
+def get_battery_soc(inverter: dict[str, float]) -> dict[str, float]:
+    """parse out the battery volts/watts/amps"""
+
+    soc = inverter[0].get("invert_full", {}).get("soc")
+    if soc is None:
+        critical("No soc field in invert_full data")
+    try:
+        data = {"soc": float(soc)}
+        if data["soc"] <= MIN_SOC_VALUE:
+            critical(f"SOC or lower! soc={data['soc']}")
+        return data
+    except Exception as error:
+        critical(f"Failed to parse {soc=} as float: {error=}")
+
+
+def get_battery_status(inverter: List[Dict[str, Any]]) -> dict[str, float]:
+    """parse out the battery volts/watts/amps"""
+
+    battery_status = inverter[0].get("d", {}).get("battery")
+    if battery_status is None:
+        critical("No battery_status field in data")
+    if battery_status.strip() == "":
+        critical(f"Fault detected: {battery_status=}")
+
+    res = BATTERY_PARSER.match(battery_status)
+    if res is None:
+        critical(f"Couldn't parse battery status: {battery_status=}")
+        return None
+    groups = res.groupdict()
+
+    try:
+        if 0.0 in [
+            float(groups["volts"]),
+            float(groups["amps"]),
+            float(groups["watts"]),
+        ]:
+            critical(
+                f"Fault detected: {groups['volts']=},{groups['amps']=},{groups['watts']=}"
+            )
+    except Exception as error:
+        critical(f"Couldn't parse battery status: {error=}")
+    return groups
 
 
 def main() -> None:
@@ -26,34 +74,11 @@ def main() -> None:
     if len(inverter) == 0:
         critical("No inverter data found")
 
-    battery_status = inverter[0].get("d", {}).get("battery")
-    if battery_status is None:
-        critical("No battery_status field in data")
-    if battery_status.strip() == "":
-        critical(f"Fault detected: {battery_status=}")
+    battery_data = get_battery_status(inverter)
 
-    parser = re.compile(
-        "^(?P<volts>[-\d\.]+)V\/(?P<amps>[-\d\.]+)A\/(?P<watts>[-\d\.]+)W"
-    )
-    res = parser.match(battery_status)
-    if res is None:
-        critical(f"Couldn't parse battery status: {battery_status=}")
-        return None
-    groups = res.groupdict()
+    battery_data.update(get_battery_soc(inverter))
 
-    try:
-        if 0.0 in [
-            float(groups["volts"]),
-            float(groups["amps"]),
-            float(groups["watts"]),
-        ]:
-            critical(
-                f"Fault detected: {groups['volts']=},{groups['amps']=},{groups['watts']=}"
-            )
-    except Exception as error:
-        critical(f"Couldn't parse battery status: {error=}")
-
-    ok(f"No faults detected {groups}")
+    ok(f"No faults detected {battery_data}")
 
 
 if __name__ == "__main__":
