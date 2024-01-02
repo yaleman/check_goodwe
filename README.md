@@ -18,4 +18,3 @@ Checks the following paths:
 - /etc/check_goodwe.json
 
 Copy the `check_goodwe.json.template` file and fill out the details. Your system ID is the end of the URL that starts with `https://www.semsportal.com/powerstation/powerstatussnmin/<here is your system id>`.
-

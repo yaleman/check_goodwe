@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "check-goodwe"
-version = "0.1.3"
+version = "0.1.4"
 description = "Monitoring checks for GoodWe solar inverters, designed for Nagios et al"
 authors = ["James Hodgkinson <james@terminaloutcomes.com>"]
 license = "MIT"

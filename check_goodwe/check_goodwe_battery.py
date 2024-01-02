@@ -2,7 +2,6 @@
 
 """ dumps errors from goodwe """
 
-import re
 import sys
 from typing import Any, Dict, List
 from pygoodwe import API
@@ -13,7 +12,7 @@ from check_goodwe.battery import BATTERY_PARSER
 MIN_SOC_VALUE = 0.0
 
 
-def get_battery_soc(inverter: dict[str, float]) -> dict[str, float]:
+def get_battery_soc(inverter: List[dict[str, Any]]) -> dict[str, float]:
     """parse out the battery volts/watts/amps"""
 
     soc = inverter[0].get("invert_full", {}).get("soc")
@@ -26,9 +25,10 @@ def get_battery_soc(inverter: dict[str, float]) -> dict[str, float]:
         return data
     except Exception as error:
         critical(f"Failed to parse {soc=} as float: {error=}")
+        return {}
 
 
-def get_battery_status(inverter: List[Dict[str, Any]]) -> dict[str, float]:
+def get_battery_status(inverter: List[Dict[str, Any]]) -> dict[str, Any]:
     """parse out the battery volts/watts/amps"""
 
     battery_status = inverter[0].get("d", {}).get("battery")
@@ -40,8 +40,8 @@ def get_battery_status(inverter: List[Dict[str, Any]]) -> dict[str, float]:
     res = BATTERY_PARSER.match(battery_status)
     if res is None:
         critical(f"Couldn't parse battery status: {battery_status=}")
-        return None
-    groups = res.groupdict()
+        return {}
+    groups: dict[str, str] = res.groupdict()
 
     try:
         if 0.0 in [
