@@ -17,7 +17,7 @@ check_goodwe_faults = "check_goodwe.check_goodwe_faults:main"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.8"
-pytest = "^8.2.1"
+pytest = "^8.2.2"
 mypy = "^1.10.0"
 
 [build-system]
