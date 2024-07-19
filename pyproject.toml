@@ -16,7 +16,7 @@ check_goodwe_battery = "check_goodwe.check_goodwe_battery:main"
 check_goodwe_faults = "check_goodwe.check_goodwe_faults:main"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.5.1"
+ruff = "^0.5.3"
 pytest = "^8.2.2"
 mypy = "^1.10.1"
 
