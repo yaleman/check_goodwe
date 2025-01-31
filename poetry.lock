@@ -383,13 +383,13 @@ typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
 name = "pygoodwe"
-version = "0.1.7"
+version = "0.1.9"
 description = "A command line tool and python library to query the GOODWE SEMS Portal APIs."
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pygoodwe-0.1.7-py3-none-any.whl", hash = "sha256:b284376b1e54bcaf6affd80942cd0f91f7599f040e59f8c75fa194de2a9f6c8c"},
-    {file = "pygoodwe-0.1.7.tar.gz", hash = "sha256:6168d980981b82d948bcc39c2f7919a3647b7e6288edc6a783d167bb02780d12"},
+    {file = "pygoodwe-0.1.9-py3-none-any.whl", hash = "sha256:087b90aee0fe54dbea2c25474fabfad7553553957e93d187b07565ea76c59151"},
+    {file = "pygoodwe-0.1.9.tar.gz", hash = "sha256:4df23347cda502f1a71fb12aa8b15b4083596dcee65ad0034d149ded5849bf59"},
 ]
 
 [package.dependencies]
@@ -494,4 +494,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "a9502b05d98f0b6830f647518245afcf13508cc322fcfe9d20a2bae4179df1f5"
+content-hash = "0d5757ff839eb24ea5fdb91a43d0421f28818a7b91017fae83eca3f9d045b71f"
