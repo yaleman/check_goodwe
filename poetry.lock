@@ -424,14 +424,14 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pygoodwe"
-version = "0.1.9"
+version = "0.1.10"
 description = "A command line tool and python library to query the GOODWE SEMS Portal APIs."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pygoodwe-0.1.9-py3-none-any.whl", hash = "sha256:087b90aee0fe54dbea2c25474fabfad7553553957e93d187b07565ea76c59151"},
-    {file = "pygoodwe-0.1.9.tar.gz", hash = "sha256:4df23347cda502f1a71fb12aa8b15b4083596dcee65ad0034d149ded5849bf59"},
+    {file = "pygoodwe-0.1.10-py3-none-any.whl", hash = "sha256:6320c4574abb5b2e0f83ec34e52dc32cfab29c00638a36077d2c90a28bdcc4af"},
+    {file = "pygoodwe-0.1.10.tar.gz", hash = "sha256:42a3f88e33afe22dda731b4e162ef00a2b190154728023ec195f09f9fdf74376"},
 ]
 
 [package.dependencies]
@@ -558,4 +558,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "589449a84fe9c899405600814e91551ac60d105cfd158ce408ba64fae060ae53"
+content-hash = "805a19f7e63fabc60333e5a32a561ef3b9ffd139fd4450e0efb7dc02f6f89fa6"
