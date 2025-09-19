@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 pygoodwe = "^0.1.9"
-pydantic = "^2.11.7"
+pydantic = "^2.11.9"
 
 [tool.poetry.scripts]
 check_goodwe_battery = "check_goodwe.check_goodwe_battery:main"
