@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 
-""" dumps errors from goodwe """
+"""dumps errors from goodwe"""
 
+import logging
 import sys
+
 from pygoodwe import API
 
-from check_goodwe import critical, load_config, ok
+from check_goodwe import critical, load_config, ok, unknown
 
 
 def main() -> None:
     """dumps the raw data"""
+    if "--debug" in sys.argv:
+        logging.basicConfig(level=logging.DEBUG)
     config = load_config()
     if config is None:
+        unknown("Failed to load config")
         sys.exit(2)
     goodwe = API(
         system_id=config.system_id,
